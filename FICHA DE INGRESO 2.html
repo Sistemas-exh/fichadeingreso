@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FICHA DE INGRESO</title>
+  <style>
+    :root{ --ink:#1f2937; --muted:#6b7280; --line:#d1d5db; --accent:#0ea5e9; --bg:#fff; }
+    body{font-family: Arial, sans-serif; background:var(--bg); color:var(--ink); margin:0; padding:0; font-size:12px;}
+    .page{max-width:8.5in; margin:auto; padding:10px; border:1px solid var(--line); background:white;}
+
+    .header-box{
+      display:flex; 
+      align-items:center; 
+      border:1px solid var(--line); 
+      padding:8px; 
+      margin-bottom:10px;
+      position:relative; /* necesario para centrar el título */
+    }
+    .header-box img{max-height:58px}
+    .header-box h1{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      margin:0;
+      font-size:16px;
+      text-align:center;
+    }
+    .header-box .meta{
+      margin-left:auto; /* siempre a la derecha */
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      font-size:9px;
+      color:var(--muted);
+    }
+    .pill{background:#f3f4f6; border:1px solid var(--line); padding:1px 4px; border-radius:6px; margin-top:2px}
+
+    .datos-internos{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:20px;
+    }
+    .datos-internos .grid{ flex:1; }
+
+    .foto-box{
+      width:100px;
+      height:130px;
+      border:1px solid var(--line);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:10px;
+      color:var(--muted);
+      background:#fafafa;
+    }
+
+    h2{font-size:13px; margin:8px 0 4px; color:var(--ink)}
+    .grid{display:grid; gap:6px; grid-template-columns:repeat(12,1fr);}
+    .field{display:flex; flex-direction:column; gap:3px}
+    input, select, textarea{border:1px solid var(--line); border-radius:4px; padding:5px 6px; font-size:12px}
+    textarea{min-height:40px}
+    input::placeholder, textarea::placeholder{color:var(--muted); font-size:11px}
+    select{color:var(--ink)}
+    select option[disabled]{color:var(--muted)}
+
+    .col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}.col-2{grid-column:span 2}
+
+    .checkbox-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px}
+    .checkbox-grid label{display:flex; gap:6px; align-items:center; font-size:12px}
+    .inline-check{display:flex; align-items:center; gap:6px; font-size:12px;}
+
+    .sign{margin-top:14px; border-top:1px dashed var(--line); padding-top:6px; text-align:center; font-size:12px}
+    .toolbar{display:flex; justify-content:flex-end; gap:8px; margin-top:10px}
+    .btn{border:1px solid var(--line); background:#fff; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:12px}
+
+    @media print{
+      body{font-size:10px}
+      .page{border:none; padding:0}
+      .toolbar{display:none}
+      @page{size:letter; margin:8mm}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="header-box">
+      <img src="LOGO (1).png" alt="Logo">
+      <h1>FICHA DE INGRESO</h1>
+      <div class="meta">
+        <div class="pill">Código: <strong>FCH-02-07</strong></div>
+        <div class="pill">F. de creación: <strong>06/04/2022</strong></div>
+        <div class="pill">F. de revisión: <strong>13/11/2024</strong></div>
+        <div class="pill">Versión: <strong>7</strong></div>
+      </div>
+    </div>
+    <h2>1. DATOS INTERNOS DEL COLABORADOR</h2> 
+    <div class="datos-internos">
+      <div class="grid">
+        <div class="field col-6">
+          <label for="area">Área</label>
+          <select id="area" onchange="cargarSubareas()">
+            <option disabled selected>Seleccione un área</option>
+            <option value="FINANZAS">FINANZAS</option>   
+            <option value="CAPITAL HUMANO">CAPITAL HUMANO</option>
+            <option value="COMERCIAL">COMERCIAL</option>
+            <option value="ESTRATEGIA">ESTRATEGIA</option>
+            <option value="OPERACIONES">OPERACIONES</option>
+            <option value="CALIDAD">CALIDAD</option>
+            <option value="ABASTECIMIENTO">ABASTECIMIENTO</option>
+            
+          </select>
+        </div>
+
+        <div class="field col-6">
+          <label for="area">Departamento</label>          
+          <select id="subarea">
+            <option disabled selected>Seleccione primero un área</option>
+          </select>
+        </div>
+
+        <div class="field col-4"><label for="area">Puesto</label><input type="text" placeholder="Puesto"></div>
+        <div class="field col-4"><label for="area">Fecha de Ingreso</label><input type="date" placeholder="Fecha de ingreso"></div>
+        <div class="field col-4"><label for="area">Fecha alta de IMSS</label><input type="date" placeholder="Fecha alta IMSS"></div>
+        <div class="field col-3"><label for="area">Tipo de Contrato de Ingreso</label>
+        <select>
+          <option disabled selected>Tipo de Contrato de Ingreso</option>
+          <option>CPTD-CONTRATO DE PRUEBA POR TIEMPO DETERMINADO</option>
+          <option>CTI-CONTRATO POR TIEMPO INDETERMINADO</option>
+        </select>
+        </div>
+        <div class="field col-3"><label for="area">Reporting</label>
+        <select>
+          <option disabled selected>REPORTING</option>
+          <option>DIRECTOR GENERAL</option>
+          <option>COORDINADOR TESORERIA</option>
+          <option>PROJECT MANAGER</option>
+          <option>GERENTE COMERCIAL</option>
+          <option>GERENTE DE OPERACIONES</option>
+          <option>LIDER DE PROYECTOS</option>
+          <option>JEFE DE PRODUCCION</option>
+          <option>JEFE DE ALMACEN</option>
+          <option>JEFE DE LOGISTICA</option>
+          <option>GERENTE DE ABASTECIMIENTO</option>
+          <option>JEFE DE CALIDAD</option>
+          <option>GERENTE DE CAPITAL HUMANO</option>
+          <option>GESTION DE PERSONAL</option>
+          <option>GERENTE DE FINANZAS</option>
+
+        </select>
+        </div>
+        <div class="field col-4"><label for="area">No. de Colaborador</label><input type="text" placeholder="No. Colaborador"></div>
+      </div>
+
+      <!-- 📸 Cuadro para foto -->
+      <div class="foto-box">FOTO</div>
+    </div>
+
+    <h2>2. DATOS GENERALES DEL COLABORADOR</h2>
+    <div class="grid">
+      <div class="field col-6"><input type="text" placeholder="Nombre completo"></div>
+      <div class="field col-3">
+        <select>
+          <option disabled selected>Género</option>
+          <option>Masculino</option>
+          <option>Femenino</option>
+          <option>No binario</option>
+        </select>
+      </div>
+      <div class="field col-3"><input type="date" placeholder="Fecha de nacimiento"></div>
+
+      <div class="field col-4"><input type="text" placeholder="Lugar de nacimiento"></div>
+      <div class="field col-4"><input type="text" placeholder="Nacionalidad"></div>
+      <div class="field col-4"><input type="text" placeholder="Estado civil"></div>
+
+      <div class="field col-4"><input type="text" placeholder="NSS"></div> /* SOLO NUMERO Y MAX 11 CARACTERES*/
+      <div class="field col-4"><input type="text" placeholder="CURP"></div>/* ALFANUMERICO MAX 18 CARACTERES*/
+      <div class="field col-4"><input type="text" placeholder="RFC"></div> */ ALFANUMERICO MAX 13 CARACTERES*/
+
+      <div class="field col-6"><input type="email" placeholder="Correo electrónico"></div>
+      <div class="field col-6"><input type="text" placeholder="Celular"></div>
+      <div class="field col-4"><input type="text" placeholder="Tel. particular"></div>
+      <div class="field col-4"><input type="text" placeholder="Tel. casa"></div>
+      <div class="field col-6"><input type="text" placeholder="Último grado de estudios"></div>
+      <div class="field col-6"><input type="text" placeholder="Carrera profesional / Oficio"></div>
+    </div>
+
+    <div class="grid">
+      <div class="field col-4">
+        <label class="inline-check">¿Tienes hermanos?
+          <input type="checkbox"> Sí
+          <input type="checkbox"> No
+        </label>
+      </div>
+      <div class="field col-1"><input type="number" placeholder="¿Cuántos hermanos?"></div>
+
+      <div class="field col-4">
+        <label class="inline-check">¿Tienes hijos?
+          <input type="checkbox"> Sí
+          <input type="checkbox"> No
+        </label>
+      </div>
+      <div class="field col-1"><input type="number" placeholder="¿Cuántos hijos?"></div>
+    </div>
+      <div class="grid">
+      <div class="field col-4"><input type="text" placeholder="Domicilio completo"></div>
+      <div class="field col-2"><input type="text" placeholder="No. Ext."></div>
+      <div class="field col-2"><input type="text" placeholder="No. Int."></div>
+      <div class="field col-4"><input type="text" placeholder="Colonia"></div>
+      <div class="field col-4"><input type="text" placeholder="Delegación / Municipio"></div> /* INVERTIR */
+      <div class="field col-4"><input type="text" placeholder="C.P."></div> /* INVERTIR */ 
+      <div class="field col-4"><input type="text" placeholder="Ciudad / Estado"></div> /* 32 ESTADOS */
+    </div>
+
+<h2>3. DATOS SOCIOECONÓMICOS DEL COLABORADOR</h2>
+<div class="grid">
+  <div class="field col-6">
+    <label class="inline-check">Crédito INFONAVIT
+      <input type="checkbox"> Sí
+      <input type="checkbox"> No
+      <input type="text" placeholder="No. de Crédito">
+    </label>
+  </div>
+
+  <div class="field col-6">
+    <input type="text" placeholder="¿Cuentas con retención por Pensión Alimenticia?">
+  </div>
+
+  <div class="field col-6">
+    <label class="inline-check">Crédito FONACOT
+      <input type="checkbox"> Sí
+      <input type="checkbox"> No
+      <input type="text" placeholder="No. de Crédito">
+    </label>
+  </div>
+<div class="field col-6">
+    <input type="text" placeholder="Otro tipo de Retención Social">
+  </div>
+
+
+
+
+  <div class="field col-6">
+    <select>
+      <option disabled selected>Tipo de Inmueble</option>
+      <option>Departamento</option>
+      <option>Casa</option>
+      <option>Otro</option>
+    </select>
+  </div>
+
+  <div class="field col-3">
+    <select>
+      <option disabled selected>Origen del inmueble</option>
+      <option>Propia</option>
+      <option>Arrendamiento</option>
+      <option>Prestada</option>
+    </select>
+  </div>
+
+  <div class="field col-3">
+    <select>
+      <option disabled selected>Condiciones físicas del inmueble</option>
+      <option>Malas</option>
+      <option>Regulares</option>
+      <option>Buenas</option>
+    </select>
+  </div>
+</div>
+
+    <h3 style="font-size:12px; margin-top:6px;">Habitaciones del Inmueble</h3>
+    <div class="checkbox-grid">
+      <label><input type="checkbox"> Sala</label> 
+      <label><input type="checkbox"> Comedor</label>
+      <label><input type="checkbox"> Antecomedor</label> 
+      <label><input type="checkbox"> Cocina</label>
+ 
+      <label><input type="checkbox"> Baño Individual</label>
+      <label><input type="checkbox"> Baño Colectivo</label>
+      <label><input type="checkbox"> Cuarto de Lavado</label>
+      <label><input type="checkbox"> Estudio</label>
+
+      <label><input type="checkbox"> Cuarto TV</label>
+      <label><input type="checkbox"> Patio</label>
+      <label><input type="checkbox"> Jardín</label>
+      <label><input type="checkbox"> Balcon</label>
+
+      <label><input type="checkbox"> Habitación Propia</label>
+      <label><input type="checkbox"> Habitación Colectiva </label>
+    
+    </div>
+
+    <div class="field col-3"><input type="text" placeholder="Número de Habitaciones dormitorios "></div>
+
+
+    <h3 style="font-size:12px; margin-top:12px;">Servicios con los que cuenta el inmueble</h3>
+    <div class="checkbox-grid">
+      <label><input type="checkbox"> Luz</label>
+      <label><input type="checkbox"> Agua potable</label>
+      <label><input type="checkbox"> Drenaje</label>
+      <label><input type="checkbox"> Gas estacionario</label>
+
+      <label><input type="checkbox"> Gas natural</label>
+      <label><input type="checkbox"> Tanque de gas</label>
+      <label><input type="checkbox"> Internet</label>
+      <label><input type="checkbox"> TV por cable</label>
+
+      <label><input type="checkbox"> TV local</label>
+      <label><input type="checkbox"> Teléfono</label>
+      <label><input type="checkbox"> Otros</label>
+
+    </div>
+   
+     <div class="field col-3"><input type="text" placeholder="Si Otros, especifique "></div>
+
+    <h3 style="font-size:12px; margin-top:6px;">Bienes con los que cuenta el inmueble</h3>
+    <div class="checkbox-grid">
+      <label><input type="checkbox"> Estufa</label> 
+      <label><input type="checkbox"> Refrigerador</label>
+      <label><input type="checkbox"> Horno microondas</label> 
+      <label><input type="checkbox"> Horno eléctrico</label>
+ 
+      <label><input type="checkbox"> DVD</label>
+      <label><input type="checkbox"> Blueray</label>
+      <label><input type="checkbox"> Estéreo</label>
+      <label><input type="checkbox"> Bocina Ambiental </label>
+
+      <label><input type="checkbox"> Computadora</label>
+      <label><input type="checkbox"> Laptop</label>
+      <label><input type="checkbox"> Smart TV</label>
+      <label><input type="checkbox"> Videojuegos</label>
+
+
+      <label><input type="checkbox"> Lavadora</label>
+      <label><input type="checkbox"> Secadora</label>
+      <label><input type="checkbox"> Asistente de Voz</label>
+      <label><input type="checkbox"> Cafetera</label>
+    </div>
+    
+    <h2>4. DESIGNACIÓN DE BENEFICIARIOS DEL COLABORADOR</h2>
+    <div class="grid">
+      <div class="field col-4"><input type="text" placeholder="Beneficiario 1 - Nombre completo"></div>
+      <div class="field col-4"><input type="text" placeholder="Parentesco"></div>
+      <div class="field col-4"><input type="text" placeholder="Domicilio particular"></div>
+      <div class="field col-2">
+        <select>
+          <option disabled selected>¿Dependiente?</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="field col-4"><input type="text" placeholder="Correo electrónico"></div>
+      <div class="field col-3"><input type="text" placeholder="Teléfono"></div>
+      <div class="field col-3"><input type="text" placeholder="Celular"></div>
+
+
+      <div class="field col-4"><input type="text" placeholder="Beneficiario 2 - Nombre completo"></div>
+      <div class="field col-3"><input type="text" placeholder="Parentesco"></div>
+      <div class="field col-4"><input type="text" placeholder="Domicilio particular"></div>
+      <div class="field col-2">
+        <select>
+          <option disabled selected>¿Dependiente?</option>
+          <option>Sí</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="field col-4"><input type="text" placeholder="Correo electrónico"></div>
+      <div class="field col-3"><input type="text" placeholder="Teléfono"></div>
+      <div class="field col-3"><input type="text" placeholder="Celular"></div>
+
+    </div>
+
+    <p class="sign">Declaro bajo protesta de decir verdad, que la información y los datos antes proporcionados son ciertos y libres de error, que los documentos que acompaño son auténticos y que de comprobarse que no cuenten con validez oficial, mi ingreso a la Empresa será anulado y quedarán sin efecto los actos derivados de la misma. Asimismo, me comprometo a notificar cualquier cambio de domicilio <br> NOMBRE Y FIRMA DEL COLABORADOR <br> LUGAR DE TOMA DE DATOS <br> FECHA</p> 
+
+    <div class="toolbar">
+      <button class="btn" onclick="window.print()">Imprimir</button>
+      <button class="btn" onclick="clearInputs()">Limpiar</button>
+    </div>
+  </div>
+
+  <script>
+    // Subáreas por Área
+    const subareas = {
+      "FINANZAS": ["CONTABILIDAD","TESORERIA"],
+
+      "CAPITAL HUMANO": ["CAPITAL HUMANO","SEGURIDAD E HIGIENE","SERVICIOS","SISTEMA DE GESTIÓN","SISTEMAS"],
+
+      "COMERCIAL": ["DISEÑO CONCEPTUAL","DISEÑO ESTRUCTURAL","DISEÑO GRÁFICO","MARKETING","PRESUPUESTOS","PROTOTIPOS","SERVICIO AL CLIENTE"],
+
+      "ESTRATEGIA": ["PROYECTOS","LEGAL"],
+
+      "OPERACIONES": ["ALMACÉN","LOGÍSTICA","PLANEACIÓN","PRODUCCIÓN"],
+       
+      "CALIDAD": ["CALIDAD"],
+      
+      "ABASTECIMIENTO": ["ALMANCEN","LOGISTICA","COMPRAS"]
+
+
+
+    };
+
+    function cargarSubareas() {
+      const area = document.getElementById("area").value;
+      const subareaSelect = document.getElementById("subarea");
+      subareaSelect.innerHTML = "<option disabled selected>Seleccione un departamento</option>";
+
+      if (subareas[area]) {
+        subareas[area].forEach(s => {
+          let opt = document.createElement("option");
+          opt.value = s;
+          opt.textContent = s;
+          subareaSelect.appendChild(opt);
+        });
+      }
+    }
+
+    function clearInputs(){
+      document.querySelectorAll('input, textarea, select').forEach(el=>{
+        if(el.type==='checkbox') el.checked=false; 
+        else if(el.tagName==='SELECT') el.selectedIndex=0; 
+        else el.value='';
+      });
+    }
+  </script>
+</body>
+</html>
